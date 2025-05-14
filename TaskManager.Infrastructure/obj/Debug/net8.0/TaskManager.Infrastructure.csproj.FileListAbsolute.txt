@@ -1,0 +1,15 @@
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\bin\Debug\net8.0\TaskManager.Infrastructure.deps.json
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\bin\Debug\net8.0\TaskManager.Infrastructure.dll
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\bin\Debug\net8.0\TaskManager.Infrastructure.pdb
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\bin\Debug\net8.0\TaskManager.Core.dll
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\bin\Debug\net8.0\TaskManager.Core.pdb
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.csproj.AssemblyReference.cache
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.AssemblyInfoInputs.cache
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.AssemblyInfo.cs
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.csproj.CoreCompileInputs.cache
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskMana.DD0CDC6B.Up2Date
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.dll
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\refint\TaskManager.Infrastructure.dll
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\TaskManager.Infrastructure.pdb
+C:\HomeAssignments\task-manager\TaskManager.Infrastructure\obj\Debug\net8.0\ref\TaskManager.Infrastructure.dll

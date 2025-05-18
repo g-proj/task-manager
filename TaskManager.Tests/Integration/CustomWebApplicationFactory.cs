@@ -1,10 +1,10 @@
 using DomainTaskStatus = TaskManager.Core.Entities.TaskStatus;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TaskManager.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication;
 using TaskManager.Core.Entities;
 
 namespace TaskManager.Tests.Integration
@@ -12,10 +12,21 @@ namespace TaskManager.Tests.Integration
     public class CustomWebApplicationFactory
         : WebApplicationFactory<Program>
     {
+        private readonly bool _asAdmin;
+        public CustomWebApplicationFactory()
+        {
+            _asAdmin = true;
+        }
+        internal CustomWebApplicationFactory(bool asAdmin)
+        {
+            _asAdmin = asAdmin;
+        }
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment("Testing");
+            var dbName = Guid.NewGuid().ToString();
 
+            builder.UseEnvironment("Testing");
             builder.ConfigureServices(services =>
             {
                 // 1) Remove the real DbContext registration
@@ -26,57 +37,42 @@ namespace TaskManager.Tests.Integration
                 // 2) Register DbContext with InMemory for testing
                 services.AddDbContext<TaskManagerDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("TestDb");
+                    options.UseInMemoryDatabase(dbName);
                 });
 
                 // 3) Override defaults so our “Test” scheme is used automatically
-                services.AddAuthentication(options =>
+                services.AddAuthentication("Test")
+                    .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
+                        "Test", options =>
+                        {
+                            options.ClaimsIssuer = _asAdmin ? "Admin" : "User";
+                        });
+                services.PostConfigure<AuthenticationOptions>(options =>
                 {
                     options.DefaultAuthenticateScheme = "Test";
                     options.DefaultChallengeScheme = "Test";
-                })
-                .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
-                    "Test", options => { }
-                );
-
-                services.AddAuthorization(options =>
-                    options.AddPolicy("AdminOnly",
-                        p => p.RequireClaim("role", "Admin"))
-                );
+                });
 
                 // 4) Seed some data
                 var sp = services.BuildServiceProvider();
-                using var scope = sp.CreateScope();
-                var db = scope.ServiceProvider.GetRequiredService<TaskManagerDbContext>();
-
-                // projects
-                var project = new Project
+                using (var scope = sp.CreateScope())
                 {
-                    Name = "Seed",
-                    Description = "Seed"
-                };
-                db.Projects.Add(project);
-                db.SaveChanges();
+                    var db = scope.ServiceProvider.GetRequiredService<TaskManagerDbContext>();
 
-                // Tasks
-                db.Tasks.AddRange(
-                [
-                    new TaskItem
-                    {
-                        Title       = "T1",
-                        Description = "First seeded task",
-                        Status      = DomainTaskStatus.Todo,
-                        ProjectId   = project.Id
-                    },
-                    new TaskItem
-                    {
-                        Title       = "T2",
-                        Description = "Second seeded task",
-                        Status      = DomainTaskStatus.InProgress,
-                        ProjectId   = project.Id
-                    }
-                ]);
-                db.SaveChanges();
+                    db.Projects.RemoveRange(db.Projects);
+                    db.Tasks.RemoveRange(db.Tasks);
+                    db.SaveChanges();
+
+                    var project = new Project { Name = "Seed", Description = "Seed" };
+                    db.Projects.Add(project);
+                    db.SaveChanges();
+
+                    db.Tasks.AddRange(
+                        new TaskItem { Title = "T1", Description = "First seeded task", Status = DomainTaskStatus.Todo, ProjectId = project.Id },
+                        new TaskItem { Title = "T2", Description = "Second seeded task", Status = DomainTaskStatus.InProgress, ProjectId = project.Id }
+                    );
+                    db.SaveChanges();
+                }
             });
         }
     }

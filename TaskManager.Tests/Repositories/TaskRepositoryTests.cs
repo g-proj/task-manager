@@ -1,11 +1,8 @@
 using DomainTaskStatus = TaskManager.Core.Entities.TaskStatus;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Core.Entities;
 using TaskManager.Infrastructure.Data;
 using TaskManager.Infrastructure.Repositories;
-using Xunit;
 
 namespace TaskManager.Tests.Repositories
 {

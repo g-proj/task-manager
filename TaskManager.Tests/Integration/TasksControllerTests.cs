@@ -11,7 +11,7 @@ namespace TaskManager.Tests.Integration
         : IClassFixture<CustomWebApplicationFactory>
     {
         private readonly HttpClient _client;
-        private const int ProjectId = 2;
+        private const int ProjectId = 1;
 
         public TasksControllerTests(CustomWebApplicationFactory factory)
         {
@@ -85,17 +85,14 @@ namespace TaskManager.Tests.Integration
         [Fact]
         public async Task Delete_Without_AdminRole_Is_Forbidden()
         {
-            // Arrange: simulate non-admin by creating a client without the TestAuthHandler override
-            var unauthClient = new HttpClient
-            {
-                BaseAddress = _client.BaseAddress
-            };
+            var nonAdminFactory = new CustomWebApplicationFactory(false);
+            var unauthClient = nonAdminFactory.CreateClient();
 
             // Attempt delete of seeded task 1
             var resp = await unauthClient.DeleteAsync(
                 $"/api/projects/{ProjectId}/tasks/1"
             );
-            Assert.Equal(HttpStatusCode.Unauthorized, resp.StatusCode);
+            Assert.Equal(HttpStatusCode.Forbidden, resp.StatusCode);
         }
     }
 }

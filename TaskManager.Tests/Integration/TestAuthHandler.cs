@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 namespace TaskManager.Tests.Integration
 {
     public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
@@ -17,11 +16,15 @@ namespace TaskManager.Tests.Integration
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            // Create a ClaimsPrincipal with the "Admin" role
-            var claims = new[] { new Claim("role", "Admin") };
+            bool isAdmin = Options.ClaimsIssuer == "Admin";
+            var claims = isAdmin
+                ? [new Claim("cognito:groups", "Admin")]
+                : new Claim[0];
+
             var identity = new ClaimsIdentity(claims, "Test");
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, "Test");
+
             return Task.FromResult(AuthenticateResult.Success(ticket));
         }
     }

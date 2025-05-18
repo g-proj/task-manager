@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: taskmanager-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: TaskManager.Api/Dockerfile
+    container_name: taskmanager-api
+    depends_on:
+      - db
+    environment:
+      # Tell ASP.NET Core to listen on container port 8080
+      ASPNETCORE_URLS: "http://+:8080"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      # Override the DefaultConnection from appsettings.json
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=taskdb;Username=postgres;Password=postgres"
+    ports:
+      - "5000:8080"
+
+volumes:
+  db-data:

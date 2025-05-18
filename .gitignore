@@ -1,0 +1,20 @@
+# Ignore build output
+**/bin/
+**/obj/
+
+# VS and Rider directories
+.vs/
+.idea/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+packages/
+
+# Docker
+**/docker-compose.override.yml

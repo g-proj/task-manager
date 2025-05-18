@@ -1,5 +1,85 @@
-@TaskManager.Api_HostAddress = http://localhost:5114
+@host        = http://localhost:5000
+@region      = eu-north-1
+@userPoolId  = eu-north-1_eT0ddkaQm
+@clientId    = 1sc68pqab7vonqghsmoek9k3hp
+@username    = gstuffextra@gmail.com
+@password    = NewP@ssw0rd123!
+@token       = eyJraWQiOiJOQXJtY0NjSUhuc2NtXC83MVdadGY3QzNXeW8rbUg2M0JuVmRCOWVmRkVKbz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4MDFjNTlhYy05MDIxLTcwYzUtZjIwYi0zMzI3OGQ1OWQ0NDYiLCJhdWQiOiIxc2M2OHBxYWI3dm9ucWdoc21vZWs5azNocCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJldmVudF9pZCI6IjJhMGFhZmIzLWIxOTAtNDhjMi04NzdkLTk1MmNjYjhhNjA5NyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzQ3NTQ1MTMxLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtbm9ydGgtMS5hbWF6b25hd3MuY29tXC9ldS1ub3J0aC0xX2VUMGRka2FRbSIsImNvZ25pdG86dXNlcm5hbWUiOiI4MDFjNTlhYy05MDIxLTcwYzUtZjIwYi0zMzI3OGQ1OWQ0NDYiLCJleHAiOjE3NDc1NDg3MzEsImlhdCI6MTc0NzU0NTEzMSwiZW1haWwiOiJnc3R1ZmZleHRyYUBnbWFpbC5jb20ifQ.WHS_JekWV0KePuQ8PBKndh6npqWpYoEOeBw1LRxRN-yvi9SSBLY7mfFbbHkV9LPc5XUA-DxVwTI0nItdAZ-dzJCDZcxanOte5S9DpIrZilpkJSrcvUOmhSkhRVd0999J6z51L1H2P0zcpgXCR1QQYuGRidNmzloy8teOs13NWLWCQtve6Fl7Z1xcEjE02TdgwKB9oFFNX_Ea0D3-TpPFCPX7vrTMdzD9gOpR6wok89qYwr7gsPT8M9YzDOOAULV8TITAJnyWazik80O96TdVNwZShs4rZi1pRW5zAGmTuPev8Fol4A633H45r_qMsGsNH11ngjw_ud6JP2AtARRa5g
 
+
+grant_type=password&client_id={{clientId}}&username={{username}}&password={{password}}
+
+### 2) List Projects
+GET {{host}}/api/projects?pageNumber=2&pageSize=2
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### 3) Get Project by Id
+GET {{host}}/api/projects/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### 4) Create a New Project
+POST {{host}}/api/projects
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "P3",
+  "description": "Desc3"
+}
+
+### 5) Update Project
+PUT {{host}}/api/projects/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "P4",
+  "description": "Desc4"
+}
+
+### 6) Delete Project
+DELETE {{host}}/api/projects/2
+Authorization: Bearer {{token}}
+
+### 7) List Tasks in Project 1
+GET {{host}}/api/projects/1/tasks?pageNumber=1&pageSize=10
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### 8) Get Task by Id
+GET {{host}}/api/projects/1/tasks/2
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### 9) Create a New Task in Project 1
+POST {{host}}/api/projects/1/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "New Task",
+  "description": "Details here",
+  "status": "Todo"
+}
+
+### 10) Update Task 2 in Project 1
+PUT {{host}}/api/projects/1/tasks/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Task Updated",
+  "description": "New details",
+  "status": "InProgress"
+}
+
+### 11) Delete Task 2 in Project 1
+DELETE {{host}}/api/projects/1/tasks/2
+Authorization: Bearer {{token}}
+
+###
 GET {{TaskManager.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 

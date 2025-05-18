@@ -5,6 +5,7 @@ C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Co
 C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Core.AssemblyInfoInputs.cache
 C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Core.AssemblyInfo.cs
 C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Core.csproj.CoreCompileInputs.cache
+C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Core.sourcelink.json
 C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Core.dll
 C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\refint\TaskManager.Core.dll
 C:\HomeAssignments\task-manager\TaskManager.Core\obj\Debug\net8.0\TaskManager.Core.pdb

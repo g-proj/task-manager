@@ -59,23 +59,23 @@ namespace TaskManager.Tests.Integration
                 db.SaveChanges();
 
                 // Tasks
-                db.Tasks.AddRange(new[]
-                {
+                db.Tasks.AddRange(
+                [
                     new TaskItem
                     {
-                        Name       = "T1",
+                        Title       = "T1",
                         Description = "First seeded task",
                         Status      = DomainTaskStatus.Todo,
                         ProjectId   = project.Id
                     },
                     new TaskItem
                     {
-                        Name       = "T2",
+                        Title       = "T2",
                         Description = "Second seeded task",
                         Status      = DomainTaskStatus.InProgress,
                         ProjectId   = project.Id
                     }
-                });
+                ]);
                 db.SaveChanges();
             });
         }

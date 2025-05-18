@@ -36,8 +36,8 @@ namespace TaskManager.Tests.Integration
             var tasks = await response.Content.ReadFromJsonAsync<TaskDto[]>();
             Assert.NotNull(tasks);
             Assert.Equal(2, tasks!.Length);
-            Assert.Contains(tasks, t => t.Name == "T1");
-            Assert.Contains(tasks, t => t.Name == "T2");
+            Assert.Contains(tasks, t => t.Title == "T1");
+            Assert.Contains(tasks, t => t.Title == "T2");
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace TaskManager.Tests.Integration
             // POST a new task
             var newTask = new CreateTaskDto
             {
-                Name = "NewTask",
+                Title = "NewTask",
                 Description = "Created in test",
                 Status = DomainTaskStatus.Todo
             };
@@ -57,12 +57,12 @@ namespace TaskManager.Tests.Integration
 
             var created = await postResp.Content.ReadFromJsonAsync<TaskDto>();
             Assert.NotNull(created);
-            Assert.Equal("NewTask", created!.Name);
+            Assert.Equal("NewTask", created!.Title);
 
             // PUT update it
             var update = new UpdateTaskDto
             {
-                Name = "Updated",
+                Title = "Updated",
                 Description = "Updated desc",
                 Status = DomainTaskStatus.Done
             };
@@ -72,7 +72,7 @@ namespace TaskManager.Tests.Integration
             Assert.Equal(HttpStatusCode.OK, putResp.StatusCode);
 
             var updated = await putResp.Content.ReadFromJsonAsync<TaskDto>();
-            Assert.Equal("Updated", updated!.Name);
+            Assert.Equal("Updated", updated!.Title);
             Assert.Equal(DomainTaskStatus.Done, updated.Status);
 
             // DELETE it

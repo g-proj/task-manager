@@ -63,14 +63,14 @@ namespace TaskManager.Tests.Integration
                 {
                     new TaskItem
                     {
-                        Title       = "T1",
+                        Name       = "T1",
                         Description = "First seeded task",
                         Status      = DomainTaskStatus.Todo,
                         ProjectId   = project.Id
                     },
                     new TaskItem
                     {
-                        Title       = "T2",
+                        Name       = "T2",
                         Description = "Second seeded task",
                         Status      = DomainTaskStatus.InProgress,
                         ProjectId   = project.Id
